@@ -74,9 +74,12 @@ class Spread {
 template <class BBObj>
 class KDTree {
     public:
-        KDTree() {};
+        KDTree() {
+	    root = nullptr;
+	}
         virtual ~KDTree() {
             // std::cout << " ~KDTree()" << std::endl;
+	    delete root;
         }
         /// set the bucket-size 
         void setBucketSize(int b){
@@ -113,7 +116,9 @@ class KDTree {
         /// build the kd-tree based on a list of input objects
         void build(const std::list<BBObj>& list){
             //std::cout << "KDTree::build() list.size()= " << list.size() << " \n";
-            root = build_node( &list, 0, NULL ); 
+	    delete root;
+	    root = nullptr;
+	    root = build_node( &list, 0, NULL ); 
         }
         /// search for overlap with input Bbox bb, return found objects
         std::list<BBObj>* search( const Bbox& bb ){
@@ -289,7 +294,7 @@ class KDTree {
         /// bucket size of tree
         unsigned int bucketSize;
         /// pointer to root KDNode
-        KDNode<BBObj>* root;
+        KDNode<BBObj>* root = nullptr;
         /// the dimensions in this kd-tree
         std::vector<int> dimensions;
 };
