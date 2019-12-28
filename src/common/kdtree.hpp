@@ -117,7 +117,6 @@ class KDTree {
         void build(const std::list<BBObj>& list){
             //std::cout << "KDTree::build() list.size()= " << list.size() << " \n";
 	    delete root;
-	    root = nullptr;
 	    root = build_node( &list, 0, NULL ); 
         }
         /// search for overlap with input Bbox bb, return found objects
@@ -294,7 +293,7 @@ class KDTree {
         /// bucket size of tree
         unsigned int bucketSize;
         /// pointer to root KDNode
-        KDNode<BBObj>* root = nullptr;
+        KDNode<BBObj>* root;
         /// the dimensions in this kd-tree
         std::vector<int> dimensions;
 };
